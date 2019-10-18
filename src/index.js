@@ -8,7 +8,6 @@ const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
   resolvers,
   context: request => {
-    // console.log(request.request.headers)
     return {
       db,
       pubsub,
@@ -19,6 +18,11 @@ const server = new GraphQLServer({
   fragmentReplacements
 })
 
-server.start(() => {
-  console.log('Server is up')
-})
+server.start(
+  {
+    port: process.env.PORT || 4000
+  },
+  () => {
+    console.log('Server is up')
+  }
+)
